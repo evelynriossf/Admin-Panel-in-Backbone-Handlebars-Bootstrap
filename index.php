@@ -66,9 +66,10 @@
       <div class="row">
        <div class="col-xs-12 col-sm-6 col-sm-push-6">
          <!-- <button type="button" class="addItemtoCollection btn btn-primary btn-lg">Add Video to Different Collection</button> -->
-         <button type="button" class="chapterMarkers btn btn-primary btn-lg" data-toggle="modal" data-target="#chapters-modal">Edit Chapter Markers</button>
          <button type="submit" class="submit btn btn-success btn-lg">Submit Changes</button><br>
          <button type="submit" class="delete btn btn-danger btn-lg">Delete</button><br><br>
+         <button type="button" class="chapterMarkers btn btn-primary btn-lg" data-toggle="modal" data-target="#chapters-modal">Edit Chapter Markers</button>
+         <button type="submit" class="stepIn btn btn-primary btn-lg" data-id="{{id}}">Step In</button><br><br>
        </div>
        <div class="col-xs-12 col-sm-6 col-sm-pull-6">
         <div class="form-group">

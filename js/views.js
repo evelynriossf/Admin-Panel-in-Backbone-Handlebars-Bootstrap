@@ -1,7 +1,7 @@
 // The Item View
 var AdminItemView = Backbone.View.extend({
 	tagName: 'div',
-	className: 'col-sm-12 col-md-6 item',
+	className: 'col-sm-12 item',
 
 	render: function() {
 		var template = Handlebars.compile($("#data-template").html());
@@ -15,6 +15,7 @@ var AdminItemView = Backbone.View.extend({
     'click .delete': 'deleteItem',
     // 'click .addItemtoCollection' : 'addItemtoCollection',
     'click .chapterMarkers' : 'editChapterMarkers',
+    'click .stepIn' : 'stepIn'
   },
 
   submitItem: function(e) {
@@ -59,6 +60,12 @@ var AdminItemView = Backbone.View.extend({
           var chapterMarkers = new ChapterMarkersView();
           return this;
         },
+        stepIn: function(e){
+        	e.preventDefault();
+        	var itemID = $(e.currentTarget).data('id');
+        	console.log(itemID);
+        	location.href = "../edit/"+ itemID;
+        }
 
       }); // End Item View
 

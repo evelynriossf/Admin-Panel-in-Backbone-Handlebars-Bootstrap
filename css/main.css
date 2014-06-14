@@ -58,6 +58,10 @@
 
 ul { list-style: none;}
 
+.col-sm-12 {
+    min-height: 0px;
+}
+
 .placeholder {
     /*background-color: blue;*/
 /*    outline: 1px solid #aaa;

@@ -38,7 +38,6 @@ var ChapterItems = Backbone.Collection.extend({
 	},
 });
 
-
 var AttachItems = Backbone.Collection.extend({
 	model: AttachItem,
 
