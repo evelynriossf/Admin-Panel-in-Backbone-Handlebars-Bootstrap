@@ -23,13 +23,13 @@ var AdminItem = Backbone.Model.extend({
 
 var ChapterItem = Backbone.Model.extend({
 	defaults: {
+		id:'',
 		title: '',
-		// time: '',
+		currentTime: '',
 		hours: '',
 		minutes: '',
 		seconds: '',
 	},
-
 });
 
 var AttachItem = Backbone.Model.extend({

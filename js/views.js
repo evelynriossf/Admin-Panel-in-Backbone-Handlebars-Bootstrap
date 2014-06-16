@@ -13,7 +13,6 @@ var AdminItemView = Backbone.View.extend({
 	events: {
     'click .submit':'submitItem',
     'click .delete': 'deleteItem',
-    // 'click .addItemtoCollection' : 'addItemtoCollection',
     'click .chapterMarkers' : 'editChapterMarkers',
     'click .stepIn' : 'stepIn'
   },
@@ -43,53 +42,44 @@ var AdminItemView = Backbone.View.extend({
     }
   },
 
+  editChapterMarkers: function(e) {
+    e.preventDefault();
+    var modalTemplate = Handlebars.compile($("#modal-template").html());
+    var modalRendered = modalTemplate(this.model.toJSON());
+    this.$el.append(modalRendered);
+    $('.modal').on('hidden.bs.modal', function (e) {
+      $('.modal').remove();
+    });
+    var chapterMarkers = new ChapterMarkersView();
+    return this;
+  },
 
-        // addItemtoCollection : function(e) {
-        //   e.preventDefault();
-        //   console.log("success");
-        // },
-
-        editChapterMarkers: function(e) {
-          e.preventDefault();
-          var modalTemplate = Handlebars.compile($("#modal-template").html());
-          var modalRendered = modalTemplate(this.model.toJSON());
-          this.$el.append(modalRendered);
-          $('.modal').on('hidden.bs.modal', function (e) {
-            $('.modal').remove();
-          });
-          var chapterMarkers = new ChapterMarkersView();
-          return this;
-        },
-        stepIn: function(e){
-        	e.preventDefault();
-        	var itemID = $(e.currentTarget).data('id');
-        	console.log(itemID);
-        	location.href = "../edit/"+ itemID;
-        }
+  stepIn: function(e){
+   e.preventDefault();
+   var itemID = $(e.currentTarget).data('id');
+   console.log(itemID);
+   location.href = "../edit/"+ itemID;
+ }
 
       }); // End Item View
 
-  // addItemtoCollection : function(e) {
-  //   e.preventDefault();
-  //   console.log("success");
-  // },
 
 
-  var AdminListView = Backbone.View.extend({
-   el: "#data-wrapper",
+var AdminListView = Backbone.View.extend({
+ el: "#data-wrapper",
 
-   tagname: "div",
+ tagname: "div",
 
-   _listItems: null,
+ _listItems: null,
 
-   orderAttr: 'order',
+ orderAttr: 'order',
 
-   initialize: function() {
-    this.collection = new AdminItems();
-    this.collection.fetch({reset: true});
-    this.listenTo( this.collection, 'reset', this.render);
-    this.listenTo( this.collection, 'add', this.renderTop);
-  },
+ initialize: function() {
+  this.collection = new AdminItems();
+  this.collection.fetch({reset: true});
+  this.listenTo( this.collection, 'reset', this.render);
+  this.listenTo( this.collection, 'add', this.renderTop);
+},
 
     // render collection by rendering each item
     //artificially set an order attribute on the models
@@ -128,6 +118,7 @@ var AdminItemView = Backbone.View.extend({
         opacity: 0.5,
       });
       $('#items-div').prepend( itemView.render().el );
+      this.trigger('sortupdate');
     },
 
     events: {
@@ -148,28 +139,21 @@ var AdminItemView = Backbone.View.extend({
 
    /**
    * Respond to the Sortable's update event.
-   *
-   * Iterate over each view in the list and use its position relative to
-   * its siblings to set the ordering attribute on the associated model
-   *
-   * This does not appear to trigger a resort on the collection so
-   * explicitly do this so downstream processing is working with the
+   * Iterate over each view in the list and use its position relative to its siblings to set the ordering attribute on the associated model.
+   * This does not appear to trigger a resort on the collection so explicitly do this so downstream processing is working with the
    * right order of the models.
-   *
    */
 
    changeSortOrder: function () {
-
    	var oatr = this.orderAttr;
    	_.each( this._listItems, function ( v ) {
-   		v.model.set(oatr, v.$el.index());
-   	});
-
+      console.log(v);
+      console.log(v.model);
+      console.log(v.$el.index());
+      v.model.set(oatr, v.$el.index());
+    });
    	this.collection.sort({silent: true});
-
-   	this.trigger('sorted');
    },
-
  });
 
 
@@ -216,7 +200,7 @@ var ChapterMarkerView = Backbone.View.extend({
         cue: function(e) {
           e.preventDefault;
           player.seekTo(this.model.get('currentTime'));
-      }
+        }
 
       });
 

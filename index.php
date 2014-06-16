@@ -53,8 +53,8 @@
   <!-- The wrapper HTML -->
   <div class="container-fluid">
     <div id="data-wrapper" class="row">
-     <div id="addItemButton" class="col-sm-12"><button type="button" id="add" class="btn btn-primary btn-lg">Add New Item</button></div>
-     <div id="attachItemButton" class="col-sm-12"><button type="button" id="attach" class="btn btn-primary btn-lg" data-target="#attach-item" data-toggle="modal">Attach Item</button></div>
+     <div id="addItemButton" class="col-sm-2"><button type="button" id="add" class="btn btn-primary btn-lg">Add New Item</button></div>
+     <div id="attachItemButton" class="col-sm-2"><button type="button" id="attach" class="btn btn-primary btn-lg" data-target="#attach-item" data-toggle="modal">Attach Item</button></div>
      <div id="items-div">
      </div>
   </div>
@@ -64,13 +64,19 @@
   <form class="form">
     <div class="wrapper" id="{{id}}">
       <div class="row">
-       <div class="col-xs-12 col-sm-6 col-sm-push-6">
-         <!-- <button type="button" class="addItemtoCollection btn btn-primary btn-lg">Add Video to Different Collection</button> -->
-         <button type="submit" class="submit btn btn-success btn-lg">Submit Changes</button><br>
-         <button type="submit" class="delete btn btn-danger btn-lg">Delete</button><br><br>
-         <button type="button" class="chapterMarkers btn btn-primary btn-lg" data-toggle="modal" data-target="#chapters-modal">Edit Chapter Markers</button>
-         <button type="submit" class="stepIn btn btn-primary btn-lg" data-id="{{id}}">Step In</button><br><br>
+       <div class="col-xs-12 col-sm-3 col-sm-push-9">
+       <span class="glyphicon glyphicon-arrow-up"></span>
+       <span class="glyphicon glyphicon-arrow-down"></span>
+         <!-- <button type="button" class="addItemtoCollection main btn btn-primary btn-lg">Add Video to Different Collection</button> -->
+         <button type="submit" class="submit main btn btn-success btn-lg">Submit Changes</button><br>
+         <button type="submit" class="delete main btn btn-danger btn-lg">Delete</button><br><br>
+         <button type="button" class="chapterMarkers main btn btn-primary btn-lg" data-toggle="modal" data-target="#chapters-modal">Edit Chapter Markers</button>
+         <button type="submit" class="stepIn main btn btn-primary btn-lg" data-id="{{id}}">Step In</button><br><br>
        </div>
+      <div class='col-xs-12 col-sm-3 col-sm-push-3'>
+        <label for="thumbnail">Thumbnail:</label>
+        <img src="/thumbnails/{{thumbnail}}" class="img-responsive">
+      </div>
        <div class="col-xs-12 col-sm-6 col-sm-pull-6">
         <div class="form-group">
           <label for="name"><strong>Name:</strong></label>
@@ -84,52 +90,50 @@
           <label for="url"><strong>URL or youtubeID:</strong></label>
           <input type="text" class="form-control" name="url" value="{{url}}" size="75" />
         </div>
-        <div class="form-group">
-         <form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
-          <!-- Redirect browsers with JavaScript disabled to the origin page -->
-          <noscript>&lt;input type="hidden" name="redirect" value="http://blueimp.github.io/jQuery-File-Upload/"&gt;</noscript>
-          <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-          <div class="row fileupload-buttonbar">
-            <div class="col-lg-7">
-              <!-- The fileinput-button span is used to style the file input field as button -->
-              <span class="btn btn-success fileinput-button">
-                <i class="glyphicon glyphicon-plus"></i>
-                <span>Add files...</span>
-                <input type="file" name="files[]" multiple="">
-              </span>
-              <button type="submit" class="btn btn-primary start">
-                <i class="glyphicon glyphicon-upload"></i>
-                <span>Start upload</span>
-              </button>
-              <button type="reset" class="btn btn-warning cancel">
-                <i class="glyphicon glyphicon-ban-circle"></i>
-                <span>Cancel upload</span>
-              </button>
-              <button type="button" class="btn btn-danger delete">
-                <i class="glyphicon glyphicon-trash"></i>
-                <span>Delete</span>
-              </button>
-              <input type="checkbox" class="toggle">
-              <!-- The global file processing state -->
-              <span class="fileupload-process"></span>
+<!--            </div>
+<div class=col-xs-12>-->
+        <form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
+        <!-- Redirect browsers with JavaScript disabled to the origin page -->
+        <noscript>&lt;input type="hidden" name="redirect" value="http://blueimp.github.io/jQuery-File-Upload/"&gt;</noscript>
+        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+        <div class="row fileupload-buttonbar">
+            <div class="col-sm-12">
+                <!-- The fileinput-button span is used to style the file input field as button -->
+                <span class="btn btn-success fileinput-button">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    <span>Add Thumbnail</span>
+                    <input type="file" name="files[]" multiple="">
+                </span>
+                <button type="submit" class="btn btn-primary start">
+                    <i class="glyphicon glyphicon-upload"></i>
+                    <span>Start upload</span>
+                </button>
+                <button type="reset" class="btn btn-warning cancel">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span>Cancel upload</span>
+                </button>
+                <button type="button" class="btn btn-danger delete">
+                    <i class="glyphicon glyphicon-trash"></i>
+                    <span>Delete</span>
+                </button>
+                <!--<input type="checkbox" class="toggle">-->
+                <!-- The global file processing state -->
+                <span class="fileupload-process"></span>
             </div>
             <!-- The global progress state -->
-            <div class="col-lg-5 fileupload-progress fade">
-              <!-- The global progress bar -->
-              <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-              </div>
-              <!-- The extended global progress state -->
-              <div class="progress-extended">&nbsp;</div>
+            <div class="col-sm-12 fileupload-progress fade">
+                <!-- The global progress bar -->
+                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                </div>
+                <!-- The extended global progress state -->
+                <div class="progress-extended">&nbsp;</div>
             </div>
-          </div>
-          <!-- The table listing the files available for upload/download -->
-          <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
-        </form>
+        </div>
+        <!-- The table listing the files available for upload/download -->
+        <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
+    </form>
 
-        <label for="thumbnail">Thumbnail:</label>
-        <img src="/thumbnails/{{thumbnail}}" class="img-responsive">
-      </div>
     </div>
   </div>
 </div>
@@ -143,7 +147,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title" id="modalLabel"><strong>{{name}}</strong></h4>
+          <h4 class="modal-title" id="modalLabel" data-pid="{{id}}" ><strong>{{name}}</strong><span>{{id}}</span></h4>
         </div>
         <div class="modal-body">
             <div class="row">
@@ -152,7 +156,7 @@
                   <iframe id="youtube-video" width="560" height="315" src="https://www.youtube.com/embed/{{url}}?enablejsapi=1" frameborder="0" enablejsapi="1" allowfullscreen></iframe>
                 </div>
               </div>
-              <div class="col-sm-7" id="chaptersCollection-div">
+              <div class="col-sm-7" id="chaptersCollection-div" >
                 <strong>CHAPTERS</strong>
                 <button type="button" id="addChapter" class="btn btn-primary">Add New Chapter</button>
                 <button type="button" id="saveChapters" class="btn btn-success">Save Chapters</button>
@@ -165,7 +169,6 @@
     </div>
   </div>
 </script>
-
 <!-- Handlebars script for the Chapters-->
 <script id="chapters-template" type="text/x-handlebars-template">
 <div class="col-sm-12">

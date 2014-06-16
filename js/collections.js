@@ -30,11 +30,11 @@ var ChapterItems = Backbone.Collection.extend({
 	model: ChapterItem,
 
 	initialize: function(){
-		id = window.location.pathname.split("/").pop();
+		console.log($('#modalLabel').data('pid'));
 	},
 
 	url: function(){
-		return "/cocoadynamics/C/data/chapters/" + id;
+		return "/cocoadynamics/C/data/chapters/" + encodeURIComponent($('#modalLabel').data('pid'));
 	},
 });
 

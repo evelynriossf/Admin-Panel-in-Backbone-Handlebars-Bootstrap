@@ -9,13 +9,15 @@
 /*.form {
     height: 710.5px !important;
 }*/
+#modalLabel span {color:#BBB; padding-left: 20px;}
+
 .wrapper {
     outline: 1px solid #aaa;
     background-color: #fff;
     margin: 5px;
     padding-left: 5px;
     overflow: hidden;
-     height: 710.5px !important;
+     /*height: 710.5px !important;*/
 }
 
 .submit {
@@ -40,7 +42,7 @@
     line-height: 25px;
 }
 
-.wrapper button {
+.main.btn, .wrapper .glyphicon {
     display: block;
     margin: 5px 20px 10px 10px;
     float: right;
@@ -116,3 +118,48 @@ ul { list-style: none;}
     .flex-video { padding-top: 0; }
 }
 
+.fileupload-buttonbar .btn,
+.fileupload-buttonbar .toggle {
+  margin-bottom: 5px;
+}
+.progress-animated .progress-bar,
+.progress-animated .bar {
+  background: url("../img/progressbar.gif") !important;
+  filter: none;
+}
+.fileupload-process {
+  float: right;
+  display: none;
+}
+.fileupload-processing .fileupload-process,
+.files .processing .preview {
+  display: block;
+  width: 32px;
+  height: 32px;
+  background: url("../img/loading.gif") center no-repeat;
+  background-size: contain;
+}
+.files audio,
+.files video {
+  max-width: 300px;
+}
+
+@media (max-width: 767px) {
+  .fileupload-buttonbar .toggle,
+  .files .toggle,
+  .files .btn span {
+    display: none;
+  }
+  .files .name {
+    width: 80px;
+    word-wrap: break-word;
+  }
+  .files audio,
+  .files video {
+    max-width: 80px;
+  }
+  .files img,
+  .files canvas {
+    max-width: 100%;
+  }
+}
