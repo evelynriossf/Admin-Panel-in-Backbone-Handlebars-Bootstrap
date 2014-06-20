@@ -50,6 +50,14 @@
     margin: 10px;
 }
 
+.btn-block {
+width: 60%;
+}
+
+.arrows {
+    line-height: 0px;
+}
+
 #addChapter {
     display: block;
     clear: both;

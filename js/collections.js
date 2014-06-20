@@ -7,7 +7,7 @@ var AdminItems = Backbone.Collection.extend({
 	},
 
 	url: function(){
-		return "/cocoadynamics/C/data/id/" + id;
+		return "/CocoaDynamics/C/data/id/" + id;
 	},
 
 	// initialize: function () {_(this).bindAll('syncCollection');},
@@ -34,7 +34,7 @@ var ChapterItems = Backbone.Collection.extend({
 	},
 
 	url: function(){
-		return "/cocoadynamics/C/data/chapters/" + encodeURIComponent($('#modalLabel').data('pid'));
+		return "/CocoaDynamics/C/data/chapters/" + encodeURIComponent($('#modalLabel').data('pid'));
 	},
 });
 
@@ -47,7 +47,7 @@ var AttachItems = Backbone.Collection.extend({
 
 	url: function(){
 		var filter = $('#search-text-attach').val();
-		return "/cocoadynamics/C/data/search/" + encodeURIComponent(filter);
+		return "/CocoaDynamics/C/data/search/" + encodeURIComponent(filter);
 	},
 
 });

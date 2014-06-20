@@ -18,11 +18,6 @@
   <!--<link rel="shortcut icon" href="./favicon.ico">-->
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/bb-login.css">
-  <link rel="stylesheet" href="css/jquery.fileupload.css">
-  <link rel="stylesheet" href="css/jquery.fileupload-ui.css">
-  <noscript>&lt;link rel="stylesheet" href="css/jquery.fileupload-noscript.css"&gt;</noscript>
-  <noscript>&lt;link rel="stylesheet" href="css/jquery.fileupload-ui-noscript.css"&gt;</noscript>
-
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
@@ -37,7 +32,7 @@
   <link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
 
 <!--   <?php
-  // $file = 'http://'.$_SERVER['HTTP_HOST']."/cocoadynamics/c/data/index.php?children=s20";
+  // $file = 'http://'.$_SERVER['HTTP_HOST']."/CocoaDynamics/c/data/index.php?children=s20";
   ?> -->
 
 </head>
@@ -46,104 +41,74 @@
   <!-- The navbar -->
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="navbar-container">
-      --Moingo Logo goes here--
-    </div>
-  </nav>
+     <div class="navbar-header">
+      <div class="navbar-brand">
+       Moingo Admin Panel
+     </div>
+   </div> 
+ </div>
+</nav>
 
-  <!-- The wrapper HTML -->
-  <div class="container-fluid">
-    <div id="data-wrapper" class="row">
-     <div id="addItemButton" class="col-sm-2"><button type="button" id="add" class="btn btn-primary btn-lg">Add New Item</button></div>
-     <div id="attachItemButton" class="col-sm-2"><button type="button" id="attach" class="btn btn-primary btn-lg" data-target="#attach-item" data-toggle="modal">Attach Item</button></div>
-     <div id="items-div">
+<!-- The wrapper HTML -->
+<div class="container-fluid">
+  <div id="data-wrapper" class="row">
+   <div id="addItemButton" class="col-sm-2"><button type="button" id="add" class="btn btn-primary btn-lg">Add New Item</button></div>
+   <div id="attachItemButton" class="col-sm-2"><button type="button" id="attach" class="btn btn-primary btn-lg" data-target="#attach-item" data-toggle="modal">Attach Item</button></div>
+   <div id="items-div">
+   </div>
+ </div>
+</div>
+<!-- The handlebars template for the item view -->
+<script id="data-template" type="text/x-handlebars-template">
+
+ <form class="form">
+  <div class="wrapper" id="{{id}}">
+    <div class="row">
+
+      <div class="col-xs-12 col-sm-6">
+        <div class="form-group">
+          <label for="name"><strong>Name:</strong></label>
+          <input type="text" class="form-control" name="name" value="{{name}}" size="50" />
+        </div>
+        <div class="form-group">
+          <label for="description"><strong>Description:</strong></label>
+          <input type="text" class="form-control" name="description" value="{{description}}" size="75" />
+        </div>
+        <div class="form-group">
+          <label for="url"><strong>URL or youtubeID:</strong></label>
+          <input type="text" class="form-control" name="url" value="{{url}}" size="75" />
+        </div>
+      </div>
+
+      <div class='col-xs-12 col-sm-3'>
+        <div class="thumbnail">
+          <label for="thumbnail">Thumbnail:</label>
+          <img src="/thumbnails/{{thumbnail}}" class="img-responsive">
+          <div class="caption">
+            <p><button type="button" class="changeImage btn btn-primary btn-lg" data-target="#image-modal" data-toggle="modal" data-id="{{id}}">Change Image</button></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-3">
+       <span class="glyphicon glyphicon-arrow-up arrows"></span>
+       <span class="glyphicon glyphicon-arrow-down arrows"></span>
+       <!-- <button type="button" class="addItemtoCollection main btn btn-primary btn-lg">Add Video to Different Collection</button> -->
+       <div>
+         <button type="submit" class="submit main btn btn-success btn-lg btn-block" >Submit Changes</button><br>
+         <button type="submit" class="delete main btn btn-danger btn-lg btn-block">Delete</button><br><br>
+         <button type="button" class="chapterMarkers main btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#chapters-modal">Edit Chapter Markers</button>
+         <button type="submit" class="stepIn main btn btn-primary btn-lg btn-block" data-id="{{id}}">Step In</button><br><br>
+       </div>
      </div>
    </div>
  </div>
- <!-- The handlebars template for the item view -->
- <script id="data-template" type="text/x-handlebars-template">
-  <form class="form">
-    <div class="wrapper" id="{{id}}">
-      <div class="row">
+</form>
+</script>
 
-        <div class="col-xs-12 col-sm-6">
-          <div class="form-group">
-            <label for="name"><strong>Name:</strong></label>
-            <input type="text" class="form-control" name="name" value="{{name}}" size="50" />
-          </div>
-          <div class="form-group">
-            <label for="description"><strong>Description:</strong></label>
-            <input type="text" class="form-control" name="description" value="{{description}}" size="75" />
-          </div>
-          <div class="form-group">
-            <label for="url"><strong>URL or youtubeID:</strong></label>
-            <input type="text" class="form-control" name="url" value="{{url}}" size="75" />
-          </div>
-          <!--            </div>
-          <div class=col-xs-12>-->
-            <form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
-              <!-- Redirect browsers with JavaScript disabled to the origin page -->
-              <noscript>&lt;input type="hidden" name="redirect" value="http://blueimp.github.io/jQuery-File-Upload/"&gt;</noscript>
-              <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
-              <div class="row fileupload-buttonbar">
-                <div class="col-sm-12">
-                  <!-- The fileinput-button span is used to style the file input field as button -->
-                  <span class="btn btn-success fileinput-button">
-                    <i class="glyphicon glyphicon-plus"></i>
-                    <span>Add Thumbnail</span>
-                    <input type="file" name="files[]" multiple="">
-                  </span>
-                  <button type="submit" class="btn btn-primary start">
-                    <i class="glyphicon glyphicon-upload"></i>
-                    <span>Start upload</span>
-                  </button>
-                  <button type="reset" class="btn btn-warning cancel">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel upload</span>
-                  </button>
-                  <button type="button" class="btn btn-danger delete">
-                    <i class="glyphicon glyphicon-trash"></i>
-                    <span>Delete</span>
-                  </button>
-                  <!--<input type="checkbox" class="toggle">-->
-                  <!-- The global file processing state -->
-                  <span class="fileupload-process"></span>
-                </div>
-                <!-- The global progress state -->
-                <div class="col-sm-12 fileupload-progress fade">
-                  <!-- The global progress bar -->
-                  <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
-                  </div>
-                  <!-- The extended global progress state -->
-                  <div class="progress-extended">&nbsp;</div>
-                </div>
-              </div>
-              <!-- The table listing the files available for upload/download -->
-              <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
-            </form>
-          </div>
 
-          <div class='col-xs-12 col-sm-3'>
-            <label for="thumbnail">Thumbnail:</label>
-            <img src="/thumbnails/{{thumbnail}}" class="img-responsive">
-          </div>
-
-          <div class="col-xs-12 col-sm-3">
-           <span class="glyphicon glyphicon-arrow-up"></span>
-           <span class="glyphicon glyphicon-arrow-down"></span>
-           <!-- <button type="button" class="addItemtoCollection main btn btn-primary btn-lg">Add Video to Different Collection</button> -->
-           <button type="submit" class="submit main btn btn-success btn-lg">Submit Changes</button><br>
-           <button type="submit" class="delete main btn btn-danger btn-lg">Delete</button><br><br>
-           <button type="button" class="chapterMarkers main btn btn-primary btn-lg" data-toggle="modal" data-target="#chapters-modal">Edit Chapter Markers</button>
-           <button type="submit" class="stepIn main btn btn-primary btn-lg" data-id="{{id}}">Step In</button><br><br>
-         </div>
-       </div>
-     </div>
-   </form>
- </script>
-
- <!-- Handlebars template for modal-->
- <script id="modal-template" type="text/x-handlebars-template">
+<!-- Handlebars template for modal-->
+<script id="modal-template" type="text/x-handlebars-template">
   <div class="modal fade bs-modal-lg" id="chapters-modal" tabindex="-1" role="dialog" aria-labelledby="LargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -320,21 +285,21 @@
 </script>
 
 <div class="modal fade bs-modal-lg" id="attach-item"  tabindex="-1" role="dialog" aria-labelledby="LargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-   <div class="modal-content">
-    <div class="modal-header">
-     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-     <h4 class="modal-title" id="modalLabel"><strong>Attach</strong></h4>
-   </div>
-   <div class="modal-body">
-     <div class="container">
-      <div class="row">
-       <div class="col-sm-12" id="attach-modalContent">
-        <input type="text" id="search-text-attach" class="col-sm-8" value="space"/>
+ <div class="modal-dialog modal-lg">
+  <div class="modal-content">
+   <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="modalLabel"><strong>Attach</strong></h4>
+  </div>
+  <div class="modal-body">
+    <div class="container">
+     <div class="row">
+      <div class="col-sm-12" id="attach-modalContent">
+       <input type="text" id="search-text-attach" class="col-sm-8" value="space"/>
 
-        <div class='col-sm-3'><button type="button" id="search-attach" class="btn btn-primary col-sm-8">Search</button></div>
-      </div>
-      <div class="col-sm-12" id="attachCollection-div">
+       <div class='col-sm-3'><button type="button" id="search-attach" class="btn btn-primary col-sm-8">Search</button></div>
+     </div>
+     <div class="col-sm-12" id="attachCollection-div">
        <ul>
         <li class="col-sm-2">ID</li> <li class="col-sm-5">Name</li></ul>
       </ul>
@@ -353,14 +318,33 @@
 	<li class="col-sm-2">{{id}}</li> <li class="col-sm-7">{{name}}</li><li class="col-sm-3"><button type="button" class="itemAttach btn btn-primary col-sm-12">attach</button></li></ul>
 </script>
 
+
+
+<script id="changeImage-template" type="text/x-handlebars-template">
+  <div class="modal fade bs-modal-lg" id="image-modal" tabindex="-1" role="dialog" aria-labelledby="LargeModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+     <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title" id="modalLabel" data-pid="{{id}}" ><strong>Edit Image for {{name}}</strong><span>{{id}}</span></h4>
+    </div>
+    <div class="modal-body">
+      <iframe src="php/upload.php?id={{id}}" style="zoom:0.60" width="99.6%" height="500" frameborder="0"></iframe>
+    </div>
+  </div>
+</div>
+</div>
+</script>
+
 <!-- Required libraries -->
-<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
 <script src="js/libs/bootstrap.min.js"></script>
 <script src="js/libs/underscore.js" type="text/javascript"></script>
 <script src="js/libs/backbone.js" type="text/javascript"></script>
 <script src="js/libs/handlebars.js" type="text/javascript"></script>
+
 
 <!-- Backbone scripts -->
 <script src="js/models.js" type="text/javascript"></script>

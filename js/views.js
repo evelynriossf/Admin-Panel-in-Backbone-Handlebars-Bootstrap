@@ -14,7 +14,8 @@ var AdminItemView = Backbone.View.extend({
     'click .submit':'submitItem',
     'click .delete': 'deleteItem',
     'click .chapterMarkers' : 'editChapterMarkers',
-    'click .stepIn' : 'stepIn'
+    'click .stepIn' : 'stepIn',
+    'click .changeImage' : 'changeImage'
   },
 
   submitItem: function(e) {
@@ -55,13 +56,21 @@ var AdminItemView = Backbone.View.extend({
   },
 
   stepIn: function(e){
-   e.preventDefault();
-   var itemID = $(e.currentTarget).data('id');
-   console.log(itemID);
-   location.href = "../edit/"+ itemID;
- }
+  	e.preventDefault();
+  	var itemID = $(e.currentTarget).data('id');
+  	location.href = "../edit/"+ itemID;
+  },
 
-      }); // End Item View
+  changeImage: function (e){
+  	e.preventDefault();
+  	var modalTemplate = Handlebars.compile($("#changeImage-template").html());
+  	var modalRendered = modalTemplate(this.model.toJSON());
+  	this.$el.append(modalRendered);
+  	$('.modal').on('hidden.bs.modal', function (e) {
+  		$('.modal').remove();
+  	});
+  }
+}); // End Item View
 
 
 
@@ -102,7 +111,7 @@ var AdminListView = Backbone.View.extend({
     	$('#items-div').sortable({
         forcePlaceholderSize: true,
         opacity: 0.5,
-
+        axis: "y"
       });
     	$('#items-div').append( itemView.render().el );
     },
@@ -290,7 +299,7 @@ var AttachItemView = Backbone.View.extend({
 		var element = $(e.currentTarget);
 		element.addClass('disabled');
 		$.ajax({
-			url: '/cocoadynamics/C/data/attach/' + id + '/' + this.model.id,
+			url: '/CocoaDynamics/C/data/attach/' + id + '/' + this.model.id,
 			type: 'post'
 		}).done(function() {
 			element.html('Success');
